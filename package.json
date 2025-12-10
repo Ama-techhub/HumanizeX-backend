@@ -1,8 +1,11 @@
 {
   "name": "humanizex-backend",
   "version": "1.0.0",
-  "type": "module",
+  "main": "server.js",
   "scripts": {
-    "vercel-build": "echo build complete"
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
 }
