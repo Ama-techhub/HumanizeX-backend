@@ -1,22 +1,39 @@
-const express = require('express');
-const app = express();
-const PORT = process.env.PORT || 3000;
+import express from "express";
+import cors from "cors";
 
-// Body parser (optional if you handle JSON requests)
+const app = express();
+app.use(cors());
 app.use(express.json());
 
-// Example routes
-app.get('/', (req, res) => {
-  res.send('HumanizeX Backend is running!');
+// Test endpoint
+app.get("/", (req, res) => {
+  res.send("HumanizeX backend is working");
 });
 
-app.get('/api/test', (req, res) => {
-  res.json({ message: 'API is working!' });
+// Humanize text endpoint
+app.post("/humanize", (req, res) => {
+  const { text } = req.body;
+
+  if (!text) {
+    return res.status(400).json({ error: "No text provided" });
+  }
+
+  const humanized = "Humanized version: " + text; 
+  res.json({ result: humanized });
 });
 
-// Add your other routes here
-// Example: app.use('/api/users', require('./routes/users'));
+// Create book endpoint
+app.post("/book", (req, res) => {
+  const { storyline } = req.body;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  if (!storyline) {
+    return res.status(400).json({ error: "No storyline provided" });
+  }
+
+  const book = "Generated Book Based on Storyline: " + storyline;
+  res.json({ result: book });
+});
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
 });
